@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  php-apache:
+    image: php:8.3-apache
+    container_name: taskflow_php
+    ports:
+      - "80:80"
+    volumes:
+      - ./htdocs/TASKFLOW:/var/www/html
+    working_dir: /var/www/html
+    command: bash -c "apt-get update && apt-get install -y unzip curl git && php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer && rm composer-setup.php && apache2-foreground"
